@@ -1,0 +1,58 @@
+
+<div class="container w-100">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="todolist not-done">
+             <h1>Todos</h1>
+                <input type="text" class="form-control add-todo" [(ngModel)]="name" id="name" name="name" placeholder="Add todo">
+                    <button id="checkAll" class="btn btn-success" (click)="addTodo()">Add Todo</button>
+                    
+                <hr>
+                <div>
+                    <input type="button" [class]="filter=='SHOW_ALL' ? 'btn btn-primary': 'btn btn-default'" value="All" (click)="changeFilter('SHOW_ALL')">
+                    <input type="button" [class]="filter==='IN_PROGRESS' ? 'btn btn-primary': 'btn btn-default'" value="In Process" (click)="changeFilter('IN_PROGRESS')">
+                    <input type="button" [class]="filter==='DONE' ? 'btn btn-primary' : 'btn btn-default'" value="Done" (click)="changeFilter('DONE')">
+                </div>
+        
+                <hr>
+                <ul id="sortable" class="list-unstyled" *ngFor="let todo of todos">
+                    <li class="ui-state-default">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"  [(ngModel)]="todo.completed" />{{ todo.name }}</label>
+                                <button class="btn btn-danger ml-2" (click) ="delete(todo)">detele</button>
+                                <button class="btn btn-danger ml-2"  type="button"  data-toggle="modal" data-target="#myModal" (click)="showModal(todo)">edit</button>
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+       
+        <div class="modal-header">
+            
+          <button type="button" class="close" (click)="hideModal()">&times;</button>
+        </div>
+  
+      
+        <div class="modal-body">
+            <input type="text"  [(ngModel)]="nameEdit" value="dataEdit.name" name="nameEdit" />
+        </div>
+  
+     
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="sendModal(nameEdit, dataEdit)" >Send</button>
+          <button type="button" class="btn btn-danger" (click)="hideModal()">Close</button>
+  
+         
+          <button type="button" id="close-modal" data-dismiss="modal" style="display: none">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
